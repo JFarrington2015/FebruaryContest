@@ -12,20 +12,11 @@ namespace FebruaryContestEntry
         {
             // The solution implementation goes here
 
-            var boxBuilder = new BoxBuilder()
+            new BoxBuilder()
                 .SetDimensions(30, 15)
                 .SetBorderColor(ConsoleColor.Green)
-                .SetInsetColor(ConsoleColor.Yellow);
-
-            for (var y = 1; y <= boxBuilder.Height; y++)
-            {
-                for (var x = 1; x <= boxBuilder.Width; x++)
-                {
-                    Console.ForegroundColor = boxBuilder.SetCoords(x, y).GetBlockColor();
-                    Console.Write(block);
-                }
-                Console.WriteLine();
-            }
+                .SetInsetColor(ConsoleColor.Yellow)
+                .DrawBox();
 
             Console.ResetColor();
             Console.WriteLine();
@@ -38,8 +29,8 @@ namespace FebruaryContestEntry
         {
             private int X { get; set; }
             private int Y { get; set; }
-            public int Width { get; set; }
-            public int Height { get; set; }
+            private int Width { get; set; }
+            private int Height { get; set; }
             private ConsoleColor BorderColor { get; set; }
             private ConsoleColor InsetColor { get; set; }
 
@@ -50,14 +41,14 @@ namespace FebruaryContestEntry
                 return this;
             }
 
-            public BoxBuilder SetCoords(int x, int y)
+            private BoxBuilder SetCoords(int x, int y)
             {
                 X = x;
                 Y = y;
                 return this;
             }
 
-            public bool IsBorder()
+            private bool IsBorder()
             {
                 return (X == 1 || X == Width || Y == 1 || Y == Height);
             }
@@ -74,9 +65,22 @@ namespace FebruaryContestEntry
                 return this;
             }
 
-            public ConsoleColor GetBlockColor()
+            private ConsoleColor GetBlockColor()
             {
                 return this.IsBorder() ? BorderColor : InsetColor;
+            }
+
+            public void DrawBox()
+            {
+                for (var y = 1; y <= Height; y++)
+                {
+                    for (var x = 1; x <= Width; x++)
+                    {
+                        Console.ForegroundColor = SetCoords(x, y).GetBlockColor();
+                        Console.Write(block);
+                    }
+                    Console.WriteLine();
+                }
             }
         }
     }
