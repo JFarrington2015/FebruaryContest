@@ -4,20 +4,21 @@ using System.Runtime.InteropServices;
 
 namespace FebruaryContestEntry
 {
-	class Program
-	{
-		const char block = '▓';
+    class Program
+    {
+        const char block = '▓';
 
-		static void Main(string[] args)
-		{
-			// The solution implementation goes here
+        static void Main(string[] args)
+        {
+            // The solution implementation goes here
 
-			var boxBuilder = new BoxBuilder()
+            var boxBuilder = new BoxBuilder()
                 .SetDimensions(30, 15)
                 .SetBorderColor(ConsoleColor.Green)
                 .SetInsetColor(ConsoleColor.Yellow);
 
-            for (var y=1;y<=boxBuilder.Height;y++) {
+            for (var y = 1; y <= boxBuilder.Height; y++)
+            {
                 for (var x = 1; x <= boxBuilder.Width; x++)
                 {
                     Console.ForegroundColor = boxBuilder.SetCoords(x, y).GetBlockColor();
@@ -26,12 +27,12 @@ namespace FebruaryContestEntry
                 Console.WriteLine();
             }
 
-			Console.ResetColor();
-			Console.WriteLine();
-			Console.WriteLine();
-			Console.WriteLine("Yay, a colorful shape!");
-			Console.ReadLine();
-		}
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Yay, a colorful shape!");
+            Console.ReadLine();
+        }
 
         class BoxBuilder
         {
@@ -58,7 +59,7 @@ namespace FebruaryContestEntry
 
             public bool IsBorder()
             {
-                return (X == 1 || X == Width || Y ==1 || Y == Height);
+                return (X == 1 || X == Width || Y == 1 || Y == Height);
             }
 
             public BoxBuilder SetBorderColor(ConsoleColor color)
@@ -78,5 +79,5 @@ namespace FebruaryContestEntry
                 return this.IsBorder() ? BorderColor : InsetColor;
             }
         }
-	}
+    }
 }
